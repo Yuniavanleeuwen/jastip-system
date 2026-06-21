@@ -1,0 +1,190 @@
+import { supabase } from '../config/supabase';
+
+// ===== CUSTOMERS =====
+export const customerService = {
+  // Get all customers
+  async getAll() {
+    const { data, error } = await supabase
+      .from('customers')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  // Get single customer
+  async getById(id) {
+    const { data, error } = await supabase
+      .from('customers')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error) throw error;
+    return data;
+  },
+
+  // Create customer
+  async create(customer) {
+    const { data, error } = await supabase
+      .from('customers')
+      .insert([customer])
+      .select();
+    
+    if (error) throw error;
+    return data[0];
+  },
+
+  // Update customer
+  async update(id, customer) {
+    const { data, error } = await supabase
+      .from('customers')
+      .update(customer)
+      .eq('id', id)
+      .select();
+    
+    if (error) throw error;
+    return data[0];
+  },
+
+  // Delete customer
+  async delete(id) {
+    const { error } = await supabase
+      .from('customers')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+    return true;
+  },
+
+  // Search customers
+  async search(query) {
+    const { data, error } = await supabase
+      .from('customers')
+      .select('*')
+      .or(`name.ilike.%${query}%,city.ilike.%${query}%`)
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  }
+};
+
+// ===== CHANNELS =====
+export const channelService = {
+  async getAll() {
+    const { data, error } = await supabase
+      .from('channels')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  }
+};
+
+// ===== CURRENCIES =====
+export const currencyService = {
+  async getAll() {
+    const { data, error } = await supabase
+      .from('currencies')
+      .select('*')
+      .order('code', { ascending: true });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  async updateRate(id, rate) {
+    const { data, error } = await supabase
+      .from('currencies')
+      .update({ exchange_rate_to_idr: rate, updated_at: new Date() })
+      .eq('id', id)
+      .select();
+    
+    if (error) throw error;
+    return data[0];
+  }
+};
+
+// ===== BANK ACCOUNTS =====
+export const bankAccountService = {
+  async getAll() {
+    const { data, error } = await supabase
+      .from('bank_accounts')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  async create(account) {
+    const { data, error } = await supabase
+      .from('bank_accounts')
+      .insert([account])
+      .select();
+    
+    if (error) throw error;
+    return data[0];
+  },
+
+  async update(id, account) {
+    const { data, error } = await supabase
+      .from('bank_accounts')
+      .update(account)
+      .eq('id', id)
+      .select();
+    
+    if (error) throw error;
+    return data[0];
+  },
+
+  async delete(id) {
+    const { error } = await supabase
+      .from('bank_accounts')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+    return true;
+  }
+};
+
+// ===== SETTINGS =====
+export const settingsService = {
+  async get() {
+    const { data, error } = await supabase
+      .from('settings')
+      .select('*')
+      .single();
+    
+    if (error && error.code !== 'PGRST116') throw error;
+    return data || null;
+  },
+
+  async update(settings) {
+    const existing = await this.get();
+    
+    if (existing) {
+      const { data, error } = await supabase
+        .from('settings')
+        .update(settings)
+        .eq('id', existing.id)
+        .select();
+      
+      if (error) throw error;
+      return data[0];
+    } else {
+      const { data, error } = await supabase
+        .from('settings')
+        .insert([settings])
+        .select();
+      
+      if (error) throw error;
+      return data[0];
+    }
+  }
+};

@@ -45,6 +45,7 @@ export default function Dashboard() {
             <a href="#" className="px-4 py-4 text-blue-600 border-b-2 border-blue-600 font-medium">
               Dashboard
             </a>
+            <a href="/customers" className="px-4 py-4 text-gray-600">👥 Customers</a>
             <a href="#" className="px-4 py-4 text-gray-600 hover:text-gray-900">
               Faktur Penjualan
             </a>
