@@ -4,7 +4,7 @@ import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
-import CustomersPage from './pages/CustomersPage'
+import CustomersPage from './pages/CustomersPage';
 
 function App() {
   return (

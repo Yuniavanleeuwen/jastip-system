@@ -74,4 +74,6 @@ export default function CustomersPage() {
       </div>
     </div>
   );
-}
+}git add .
+git commit -m "Create CustomersPage.jsx"
+git push
