@@ -20,9 +20,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/customers" element={<CustomersPage />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
+        </Routes><Route path="/customers" element={<div style={{padding: '20px'}}><h1>✅ ROUTE WORKS!</h1></div>} />
       </AuthProvider>
     </BrowserRouter>
   )
