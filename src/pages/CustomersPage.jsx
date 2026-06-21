@@ -20,7 +20,7 @@ export default function CustomersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  <Route path="/customers" element={<div style={{padding: '20px'}}><h1>✅ ROUTE WORKS!</h1></div>} />};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
