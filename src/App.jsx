@@ -20,7 +20,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/customers" element={<ProtectedRoute><CustomersPage /></ProtectedRoute>} />
+          <Route path="/customers" element={<CustomersPage />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </AuthProvider>
