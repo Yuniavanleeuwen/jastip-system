@@ -8,6 +8,14 @@ export default function CustomersPage() {
   const [formData, setFormData] = useState({ name: '', phone: '', address: '', city: '' });
 
   useEffect(() => {
+  setLoading(true);
+  // TEMPORARY MOCK DATA
+  setCustomers([
+    { id: 1, name: 'John Doe', phone: '0812345678', address: 'Jakarta', city: 'Jakarta' },
+    { id: 2, name: 'Jane Smith', phone: '0887654321', address: 'Bandung', city: 'Bandung' }
+  ]);
+  setLoading(false);
+}, []);
     loadCustomers();
   }, []);
 
