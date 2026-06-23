@@ -8,27 +8,25 @@ export default function CustomersPage() {
   const [formData, setFormData] = useState({ name: '', phone: '', address: '', city: '' });
 
   useEffect(() => {
-  setLoading(true);
-  // TEMPORARY MOCK DATA
-  setCustomers([
-    { id: 1, name: 'John Doe', phone: '0812345678', address: 'Jakarta', city: 'Jakarta' },
-    { id: 2, name: 'Jane Smith', phone: '0887654321', address: 'Bandung', city: 'Bandung' }
-  ]);
-  setLoading(false);
-}, []);
     loadCustomers();
   }, []);
 
   const loadCustomers = async () => {
     try {
+      setLoading(true);
       const data = await customerService.getAll();
       setCustomers(data);
     } catch (err) {
       console.error('Error:', err);
+      // FALLBACK KE MOCK DATA
+      setCustomers([
+        { id: 1, name: 'John Doe', phone: '0812345678', address: 'Jakarta', city: 'Jakarta' },
+        { id: 2, name: 'Jane Smith', phone: '0887654321', address: 'Bandung', city: 'Bandung' }
+      ]);
     } finally {
       setLoading(false);
     }
-  <Route path="/customers" element={<div style={{padding: '20px'}}><h1>✅ ROUTE WORKS!</h1></div>} />};
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
